@@ -1,30 +1,34 @@
 import { useState } from 'react';
+import Circle from './components/Circle/Circle';
+import './App.css';
 
 const App = () => {
-  const [numbers, setNumbers] = useState([5, 7, 10, 23, 31]);
+  const [numbers, setNumbers] = useState([5, 11, 16, 23, 32]);
+
   const getRandomNum = () => {
     const randomNumbers: number[] = [];
-    while (true) {
+
+    while (randomNumbers.length < 5) {
       const randomInt: number = Math.floor(Math.random() * 32 + 5);
-      const unicCheck = randomNumbers.includes(randomInt);
-      if (!unicCheck) {
+      if (!randomNumbers.includes(randomInt)) {
         randomNumbers.push(randomInt);
       }
-      if (randomNumbers.length >= 5) {
-        break;
-      }
     }
+
     randomNumbers.sort((a, b) => a - b);
     setNumbers([...randomNumbers]);
   };
+
   return (
-    <div>
+    <div className="app">
       <button className="btn" type="button" onClick={getRandomNum}>
         Получить числа
       </button>
-      {numbers.map((num, i) => (
-        <li key={i}>{num}</li>
-      ))}
+      <div className="circles">
+        {numbers.map((num) => (
+          <Circle key={num} content={num} />
+        ))}
+      </div>
     </div>
   );
 };
